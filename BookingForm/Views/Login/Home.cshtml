@@ -1,0 +1,7 @@
+﻿@model BookingForm.Models.Sale
+
+<h3 style="text-align:right">Xin chào  @Html.DisplayFor(model => model.name)</h3>
+<h6 style="font-style:italic; text-align:right">TP. Hồ Chí Minh, ngày @DateTime.Now.Day  tháng @DateTime.Now.Month năm @DateTime.Now.Year</h6>
+<a asp-action="AddMeeting">Xếp số hợp đồng</a>
+<span style="display:inline-block; height: 15px;"></span>
+<a style="text-align:right" asp-action="Meetings" asp-route-id="@Model.ID">Lịch sử gặp khách</a>

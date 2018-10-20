@@ -1,0 +1,44 @@
+﻿[
+  {
+    "id": 0,
+    "name": "Hoàng Thế Vinh",
+    "pass": "0",
+    "email": "vinh.hoang@annhome.vn",
+    "phone": "0909808770"
+  },
+  {
+    "id": 1,
+    "name": "Nguyễn Quang Sơn",
+    "pass": "1",
+    "email": "son.nguyen@annhome.vn",
+    "phone": "0909770808"
+  },
+  {
+    "id": 2,
+    "name": "Trần Tú Uyên",
+    "pass": "2",
+    "email": "uyen.tran@annhome.vn",
+    "phone": "0909327880"
+  },
+  {
+    "id": 3,
+    "name": "Hoàng Cường",
+    "pass": "3",
+    "email": "cuong.hoang@annhome.vn",
+    "phone": "0908555003"
+  },
+  {
+    "id": 4,
+    "name": "Phạm Tấn Duy",
+    "pass": "4",
+    "email": "duy.pham@annhome.vn",
+    "phone": "0969818642"
+  },
+  {
+    "id": 5,
+    "name": "Nhật Trường",
+    "pass": "1",
+    "email": "truong.nhat@annhome.vn",
+    "phone": "0165290737"
+  }
+]

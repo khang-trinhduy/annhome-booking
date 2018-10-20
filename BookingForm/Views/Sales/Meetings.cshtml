@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BookingForm.Models.Appoinment>
+
+@{
+    ViewData["Title"] = "Meetings";
+}
+
+<h2>Lịch sử gặp khách hàng</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên khách hàng
+            </th>
+                Tình trạng
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@{ 
+    int count = 0;
+}
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @count
+            </td>
+            <td>
+                <a asp-action="AppDetails" asp-route-id="@item.ID"> @Html.DisplayFor(modelItem => item.Customer)</a>
+            </td>
+            <td>
+                Hoàn tất
+            </td>
+        </tr>
+    count += 1;
+}
+    </tbody>
+</table>

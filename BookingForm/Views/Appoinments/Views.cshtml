@@ -1,0 +1,134 @@
+﻿@model BookingForm.Models.Appoinment
+
+@{
+    ViewData["Title"] = "Views";
+}
+<img style="display:block;margin-left:auto;margin-right:auto;" src="~/images/logo.png" asp-append-version="true" />
+<div>
+    <h4 style="font-weight:bold;text-align:center">PHIẾU ĐĂNG KÝ GIỮ CHỖ - DỰ ÁN VINCITY</h4>
+    <p style="font-style:italic; font-weight:bold; text-align:center">( Số: @ViewBag.rd/2018/DKGC-VINC )</p>
+    <h6 style="font-style:italic; text-align:right">TP. Hồ Chí Minh, ngày @DateTime.Now.Day  tháng @DateTime.Now.Month năm @DateTime.Now.Year</h6>
+    <h5 style="font-weight:bold; text-align:left">BÊN A: CÔNG TY CỔ PHẦN NHÀ ANN HOME</h5>
+    <p>Trụ sở	:	311 K25 đường số 8, khu phố 1, phường An Phú, Quận 2, TP. Hồ Chí Minh</p>
+    <p>
+        Đ/c giao dịch	:	Khu nhà mẫu VinCity, tầng 3 Vincom Mega Mall, Quận 2, TP.HCM
+    </p>
+    <p>Mã số thuế	:	0314251205</p>
+    <p style="display: inline;">Đại diện bởi  	:</p><p style="display: inline; font-weight: bold;">	Bà Lê Thị Thu Hằng<span style="display:inline-block; width: 100px;"></span></p><p style="display:inline;">Chức vụ:  	Tổng Giám Đốc</p>
+    <p>Điện thoại	:	0867.3014.666<span style="display:inline-block; width: 150px;"></span>Hotline: 0902 969 169</p>
+    <p>Email	:	hello@annhome.vn<span style="display:inline-block; width: 150px;"></span>Website: https://www.annhome.vn</p>
+    <p style="font-style:italic">(Sau đây gọi là Bên A)</p>
+    <h5 style="font-weight:bold; text-align:left">BÊN B: THÔNG TIN KHÁCH HÀNG</h5>
+    <p>Ông/bà	: @Html.DisplayFor(model => model.Customer)</p>
+    <p>Số CMND (hộ chiếu)	: @Html.DisplayFor(model => model.Cmnd)	<span style="display:inline-block; width: 70px;"></span>Ngày cấp: @Html.DisplayFor(model => model.Day)<span style="display:inline-block; width: 70px;"></span>Nơi cấp:	@Html.DisplayFor(model => model.Place)</p>
+    <p>Hộ khẩu thường trú	: @Html.DisplayFor(model => model.HKTT)</p>
+    <p>Địa chỉ liên hệ	: @Html.DisplayFor(model => model.Address)</p>
+    <p>Điện thoại	: @Html.DisplayFor(model => model.Phone)</p>
+    <p>Email	: @Html.DisplayFor(model => model.Email)</p>
+    <p style="font-style:italic">(Sau đây gọi là Bên B)</p>
+    <p>Các Bên thống nhất lập và ký kết phiếu đăng ký giữ chỗ này sau khi có xác nhận bên B thanh toán đầy đủ số tiền giữ chỗ cho bên A thông qua chuyển khoản hoặc tiền mặt để đảm bảo việc tham gia đăng ký mua sản phẩm bất động sản tại Dự Án Vincity Quận 9 với các nội dung sau đây:</p>
+    <h5 style="font-weight:bold">Điều 1. Nội dung thỏa thuận</h5>
+    <p style="font-weight:bold">1.1.	Thông tin loại sản phẩm bất động sản đăng ký tham gia chọn mua:</p>
+    <ul style="list-style-type: lower-alpha;">
+        @{
+                var str = "";
+                if(@Model.NCH1 != 0) {
+                    str += "<li><p style=\"font-weight:bold\">Căn Hộ 1 phòng ngủ:</p><p>-	Số lượng căn: 0" + @Model.NCH1 + "……………Tầng:………………</p><p>-	Hướng  ………………    View………………</p></li>";
+                }
+                if(@Model.NCH2 != 0) {
+                    str += "<li><p style=\"font-weight:bold\">Căn Hộ 2 phòng ngủ:</p><p>-	Số lượng căn: 0" + @Model.NCH2 + "……………Tầng:………………</p><p>-	Hướng  ………………    View………………</p></li>";
+                }
+                if(@Model.NCH3 != 0) {
+                    str += "<li><p style=\"font-weight:bold\">Căn Hộ 3 phòng ngủ:</p><p>-	Số lượng căn: 0" + @Model.NCH3 + "……………Tầng:………………</p><p>-	Hướng  ………………    View………………</p></li>";
+                }
+        }
+        @Html.Raw(str)
+        <li>
+            <p style="font-weight:bold">
+                Shophouse:
+            </p><p style="display:inline">
+                -	Số lượng căn: 0</p><p style="display:inline">@Html.DisplayFor(model => model.NSHH)……………Hướng:……………    View: ……………………
+            </p>
+        </li>
+        <li>
+            <p style="font-weight:bold">
+                Nhà phố:
+            </p><p style="display:inline">
+                -	Số lượng căn: 0</p><p style="display:inline">@Html.DisplayFor(model => model.NSH)……………Hướng:……………    View: ……………………
+            </p>
+        </li>
+        <li>
+            <p style="font-weight:bold">
+                Biệt thự:
+            </p><p style="display:inline">
+                -	Số lượng căn: 0</p><p style="display:inline">@Html.DisplayFor(model => model.NMS)……………Hướng:……………    View: ……………………
+            </p>
+        </li>
+    </ul>
+
+    <p style="font-weight:bold">1.2.	Số tiền giữ chỗ đặt mua: &nbsp; @ViewBag.New_Money</p>
+    <p>( Bằng chữ: &nbsp; @ViewBag.Money_Letters )</p>
+    <p>Thời gian tính quyền ưu tiên của khách hàng sẽ căn cứ vào phiếu thu tiền mặt hoặc ủy nhiệm chi chuyển khoản</p>
+    <h5 style="font-weight:bold">Điều 2.	Phương thức thanh toán</h5>
+    <p>
+        -	Bên B thanh toán số tiền đăng ký giữ chỗ nêu trên bằng tiền mặt hoặc chuyển khoản vào tài khoản Ngân hàng sau đây:
+    <p style="display:inline">-	Tên tài khoản:</p><p style="display:inline; font-weight:bold;"> Công ty Cổ Phần Nhà ANN HOME</p>
+    <p style="font-weight:bold; text-decoration:underline;">Tại NH TMCP Việt Nam Thương Tín (Vietbank)
+    </p>
+    <ul style="list-style:none;">
+        <li>
+            <p style="display:inline"><span style="font-family:Wingdings">&#x00d8;</span>	Số tài khoản<span style="display:inline-block; width: 60px;"></span>:</p>
+            <p style="display:inline; font-weight:bold"> 14206377</p>
+        </li>
+        <li>
+            <p style="display:inline"><span style="font-family:Wingdings">&#x00d8;</span>	Tên Ngân hàng<span style="display:inline-block; width: 41px;"></span>:</p>
+            <p style="display:inline; font-weight:bold"> Vietbank – CN Võ Văn Ngân - TP HCM</p>
+        </li>
+    </ul>
+    <p style="font-weight:bold; text-decoration:underline;">Tại NH TMCP Ngoại Thương Việt Nam (Vietcombank)</p>
+    <ul style="list-style:none">
+        <li>
+            <p style="display:inline"><span style="font-family:Wingdings">&#x00d8;</span>	Số tài khoản<span style="display:inline-block; width: 60px;"></span>:</p>
+            <p style="display:inline; font-weight:bold"> 0371000471407</p>
+        </li>
+        <li>
+            <p style="display:inline"><span style="font-family:Wingdings">&#x00d8;</span>	Tên Ngân hàng<span style="display:inline-block; width: 41px;"></span>:</p>
+            <p style="display:inline; font-weight:bold"> Vietcombank - CN Tân Định - TP HCM</p>
+        </li>
+    </ul>
+    <p style="display:inline">-	Nội dung: </p><p style="display:inline; font-weight:bold;">[Tên khách hàng] giữ chỗ [SL] [Sản phẩm] VinCity</p>
+    <h5 style="font-weight:bold">Điều 3.	Điều khoản chung</h5><p>
+    <ul class="dashed">
+        <li>
+            Phiếu đăng ký giữ chỗ này không phải là phiếu đặt cọc, không có giá trị pháp lý thay thế phiếu đặt cọc.
+        </li>
+        <li>
+            Với phiếu đăng ký giữ chỗ này, Bên A nhận lời đặt giữ chỗ căn hộ nêu trên cho Bên B khi Chủ đầu tư mở bán chính thức. Bên A sẽ thông báo giá bán chính thức tới Bên B khi thỏa mãn các điều khoản của Chủ đầu tư và giá trị giữ chỗ sẽ trở thành tiền đặt cọc.
+        </li>
+        <li>
+            Nếu bên B không đồng ý với giá bán căn hộ Chủ đầu đưa ra thì Bên A sẽ trả lại toàn bộ giá trị giữ chỗ cho Bên B trong vòng 07 ngày làm việc.
+        </li>
+
+        <li>
+            Phiếu giữ chỗ này không còn giá trị khi bên B đã chính thức chuyển sang ký hợp đồng đặt cọc với chủ đầu tư.
+        </li>
+        <li>
+            Phiếu này được lập thành 02 (hai) bản và có giá trị như nhau. Bên A giữ 01 bản, Bên B giữ 01 bản để làm cơ sở thực hiện.
+        </li>
+    </ul>
+    
+        
+        
+        
+        
+    </p>
+    <h5 style="font-weight:bold; text-align:center;">ĐẠI DIỆN BÊN A<span style="display:inline-block; width: 152px;"></span>ĐẠI DIỆN BÊN B</h5>
+    <p style="font-style:italic; text-align:center;">(ký và ghi rõ họ tên)<span style="display:inline-block; width: 130px;"></span> (ký và ghi rõ họ tên)</p>
+    <img style="height:119px;width:160px; margin-left:150px;" src="~/images/sign.jpg" asp-append-version="true" />
+    @*<span style="display:inline-block; height: 52px;"></span>*@
+    <h5 style="font-weight: bold"><span style="display:inline-block; width: 152px;"></span>LÊ THỊ THU HẰNG</h5>
+    <span style="display:inline-block; height: 15px;"></span>
+    <h5 style="font-weight:bold; text-align:center">Nhân viên kinh doanh</h5>
+    <p style="font-style:italic; text-align:center">(ký và ghi rõ họ tên)</p>
+</div>
+
