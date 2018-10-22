@@ -30,6 +30,21 @@ namespace BookingForm.Controllers
         [HttpPost]
         public IActionResult Home(Sale sale)
         {
+            int count = 0;
+            var meetings = _context.appoinment
+       .Where(b => b.sale.Contains(sale.email))
+       .ToList();
+            string idl = "";
+            List<string> name = new List<string>();
+            foreach (Appoinment appoinment in meetings)
+            {
+                idl += " " + Convert.ToString(appoinment.Contract);
+                name.Insert(count, (appoinment.Customer));
+                count++;
+            }
+            ViewBag.id = idl.Trim().Split(" ");
+            ViewBag.meetings = name;
+            TempData["email"] = sale.email;
             foreach (Sale s in sales)
             {
                 if (sale.email.Equals(s.email) && sale.pass.Equals(s.pass))
@@ -41,30 +56,38 @@ namespace BookingForm.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddMeeting()
+        public async Task<IActionResult> AddMeeting(int? id)
         {
-            return RedirectToAction("Create","Appoinments", new { id = "name" });
+            if(id == null)
+            {
+                return NotFound();
+            }
+            //Sale sale = new Sale();
+            //var temp = await _context.sale.FirstOrDefaultAsync(s => s.ID == id);
+            //sale = temp;
+            //TempData["email"] = sale.email;
+            return RedirectToAction("Create","Appoinments",new { id });
         }
 
-        public IActionResult Meetings(int? id)
-        {
-            if (id == null)
-            {
-                return View("~/Views/Shared/Error.cshtml");
-            }
-            Sale tmp = new Sale();
-            foreach (Sale sale in sales)
-            {
-                if (sale.ID == id)
-                {
-                    tmp = sale;
-                }
-            }
-            var meetings = _context.appoinment
-       .Where(b => b.sale.Contains(tmp.email))
-       .ToList();
-            return View("~/Views/Sales/Meetings.cshtml", meetings);
-        }
+       // public IActionResult Meetings(int? id)
+       // {
+       //     if (id == null)
+       //     {
+       //         return View("~/Views/Shared/Error.cshtml");
+       //     }
+       //     Sale tmp = new Sale();
+       //     foreach (Sale sale in sales)
+       //     {
+       //         if (sale.ID == id)
+       //         {
+       //             tmp = sale;
+       //         }
+       //     }
+       //     var meetings = _context.appoinment
+       //.Where(b => b.sale.Contains(tmp.email))
+       //.ToList();
+       //     return View("~/Views/Sales/Meetings.cshtml", meetings);
+       // }
 
         public async Task<IActionResult> AppDetails(int? id)
         {
@@ -72,7 +95,21 @@ namespace BookingForm.Controllers
             {
                 return NotFound();
             }
-            return RedirectToAction("Details", "Appoinments", new { id });
+            Appoinment a = await _context.appoinment
+       .FirstOrDefaultAsync(b => b.Contract == id);
+            if (a == null)
+            {
+                return NotFound();
+            }
+            foreach (Sale sale in sales)
+            {
+                if (sale.email.Equals(a.sale))
+                {
+                    TempData["name"] = sale.name;
+                }
+            }
+            
+            return RedirectToAction("Views", "Appoinments", new { id });
         }
     }
 }

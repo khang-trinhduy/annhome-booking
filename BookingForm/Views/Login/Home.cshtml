@@ -1,7 +1,45 @@
 ﻿@model BookingForm.Models.Sale
 
-<h3 style="text-align:right">Xin chào  @Html.DisplayFor(model => model.name)</h3>
+<h2 style="text-align:right">Xin chào  @Html.DisplayFor(model => model.name)</h2>
 <h6 style="font-style:italic; text-align:right">TP. Hồ Chí Minh, ngày @DateTime.Now.Day  tháng @DateTime.Now.Month năm @DateTime.Now.Year</h6>
-<a asp-action="AddMeeting">Xếp số hợp đồng</a>
+<div style="text-align:right">
+    <a asp-action="AddMeeting" asp-route-id="@Model.ID">Xếp số hợp đồng</a>
+</div>
 <span style="display:inline-block; height: 15px;"></span>
-<a style="text-align:right" asp-action="Meetings" asp-route-id="@Model.ID">Lịch sử gặp khách</a>
+<h5>Hợp đồng xếp chỗ</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên khách hàng
+            </th>
+            <th>
+                Tình trạng
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+        }
+        @foreach (var item in ViewBag.meetings)
+        {
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    <a asp-action="AppDetails" asp-route-id="@ViewBag.id[count]">@item</a>
+                </td>
+                <td>
+                    Hoàn tất
+                </td>
+            </tr>
+            count += 1;
+        }
+    </tbody>
+</table>

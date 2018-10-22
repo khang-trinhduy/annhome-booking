@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewData["Title"] = "Confirm";
+}
+
+<h3>Hợp đồng số @ViewBag.contract hiện tại có thứ tự đặt chỗ là: @ViewBag.priority</h3>
+<p>Hợp đồng này sẽ mất hiệu lực nếu như quý khách không nộp tiền vào trong khoảng thời gian 1 tiếng</p>
+<a asp-action="Views" asp-route-id="@ViewBag.contract">In hợp đồng</a>
+<a asp-action="Home" asp-route-id="@ViewBag.sale">Trở về trang chính</a>

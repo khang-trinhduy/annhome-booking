@@ -1,0 +1,95 @@
+﻿@model BookingForm.Models.AdminModal
+
+@{
+    ViewData["Title"] = "Admin";
+}
+<h2 style="text-align:right">Xin chào @Html.DisplayFor(m => m.admin.name)</h2>
+<h6 style="font-style:italic; text-align:right">TP. Hồ Chí Minh, ngày @DateTime.Now.Day  tháng @DateTime.Now.Month năm @DateTime.Now.Year</h6>
+@*<div style="text-align:right">
+        <a asp-action="AddMeeting" asp-route-id="@Model.ID">Xếp số hợp đồng</a>
+    </div>*@
+<span style="display:inline-block; height: 15px;"></span>
+<h3>Danh sách hợp đồng xếp chỗ</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.sale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Contract)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Money)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.dTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.DType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.cTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.appoinment.Confirm)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.appoinments)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Customer)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.sale)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Contract)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Money)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.dTime)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.DType)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.cTime)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Confirm)
+                </th>
+                <td>
+                    <a asp-action="Views" asp-route-id="@item.Contract">Xuất hợp đồng</a>
+                    <a asp-action="Edit" asp-route-id="@item.Contract">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Contract">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Contract">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

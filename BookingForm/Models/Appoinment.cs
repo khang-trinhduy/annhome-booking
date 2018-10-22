@@ -40,6 +40,7 @@ namespace BookingForm.Models
         public DateTime Day { get; set; }
         [Display(Name = "Nơi cấp*")]
         public string Place { get; set; }
+        [DataType(DataType.Currency)]
         [Display(Name = "Số tiền giữ chỗ đặt mua*")]
         public double Money { get; set; }
         [Required]
@@ -47,6 +48,7 @@ namespace BookingForm.Models
         public string Purpose { get; set; }
         [Display(Name = "Yêu cầu cụ thể")]
         public string Requires { get; set; }
+        [DataType(DataType.Currency)]
         [Display(Name = "Số tiền cần vay (nếu có)")]
         public double Price { get; set; }
         [Display(Name = "Đặc điểm KH")]
@@ -83,10 +85,24 @@ namespace BookingForm.Models
         [Display(Name = "Email sale*")]
         public string sale { get; set; }
         [Required]
-        [Display(Name = "Password*")]
+        [Display(Name = "Confirm Password*")]
         [DataType(DataType.Password)]
         public string password { get; set; }
-
+        [Display(Name = "Số hợp đồng")]
+        public int Contract { get; set; }
+        [Display(Name = "Số ưu tiên")]
+        public int Priority { get; set; }
+        [Display(Name = "Xác nhận chuyển tiền")]
+        public bool Confirm { get; set; }
+        [Display(Name = "Thời gian ký hợp đồng")]
+        public string cTime { get; set; }
+        [Display(Name = "Thời gian xác nhận chuyển tiền")]
+        public string dTime { get; set; }
         public Appoinment() { }
+
+        public static implicit operator Appoinment(List<Appoinment> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

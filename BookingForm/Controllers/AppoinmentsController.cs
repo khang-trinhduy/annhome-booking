@@ -206,12 +206,17 @@ namespace BookingForm.Controllers
             }
 
             var appoinment = await _context.appoinment
-                .FirstOrDefaultAsync(m => m.ID == id);
-            Random rand = new Random();
-            int rd = rand.Next(100, 151);
-            ViewBag.rd = rd + appoinment.ID;
+                .FirstOrDefaultAsync(m => m.Contract == id);
+            //Random rand = new Random();
+            //int rd = rand.Next(100, 151);
+            //ViewBag.rd = appoinment.Priority;
+            if(appoinment == null)
+            {
+                appoinment = await _context.appoinment.FirstOrDefaultAsync(m => m.ID == id);
+            }
             ViewBag.Money_Letters = So_chu(appoinment.Money);
-            ViewBag.New_Money = (appoinment.Money).ToString("N", new CultureInfo("is-IS"));
+            string temp = (appoinment.Money).ToString("N", new CultureInfo("is-IS"));
+            ViewBag.New_Money = temp.Substring(0, temp.Length - 3) + " VNĐ";
             if (appoinment == null)
             {
                 return NotFound();
@@ -248,6 +253,7 @@ namespace BookingForm.Controllers
         // GET: Appoinments/Create
         public IActionResult Create()
         {
+
             return View();
         }
 
@@ -256,19 +262,92 @@ namespace BookingForm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NHH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password")] Appoinment appoinment)
+        public async Task<IActionResult> Create([Bind("ID,Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NCH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password,Contract, Priority")] Appoinment appoinment)
         {
             //if (ModelState.IsValid)
             //{
-            if(!check(appoinment.sale, appoinment.password))
+            foreach (Sale sale in sales)
+            {
+                if(sale.email == appoinment.sale)
+                {
+                    TempData["name"] = sale.name;
+                    break;
+                }
+
+            }
+            if (!check(appoinment.sale, appoinment.password))
             {
                 return View(appoinment);
             }
-            else { 
+            
+            else {
+                string tmp = await Escalating();
+                if(tmp != "")
+                {
+                    string []n = tmp.Split(" ");
+                    appoinment.Contract = Convert.ToInt32(n[0]);
+                    appoinment.Priority = Convert.ToInt32(n[1]);
+                    ViewBag.contract = appoinment.Contract;
+                    ViewBag.priority = appoinment.Priority;
+                }
+                appoinment.cTime = DateTime.Now.ToString("ddMMyyyy HH:mm:ss.FFFFFFF");
+                appoinment.Confirm = false;
                 _context.Add(appoinment);
+                foreach (Sale sale in sales)
+                {
+                    if (sale.email.Equals(appoinment.sale))
+                    {
+                        ViewBag.sale = sale;
+                    }
+                } 
+                
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Views","Appoinments",appoinment);
+                return View("Confirm");
             } 
+        }
+
+        public IActionResult Home(Sale sale)
+        {
+            return RedirectToAction("Home", "Login", new { sale });
+        }
+
+        public async Task<string> Escalating()
+        {
+            var tmp = await _context.appoinment.ToListAsync();
+            string output = "";
+            if(tmp.Count <= 0)
+            {
+                return "";
+            }
+            List<int> contracts = new List<int>();
+            List<int> priors = new List<int>();
+            foreach (Appoinment a in await _context.appoinment.ToListAsync())
+            {
+                try
+                {
+                    contracts.Add(a.Contract);
+                    priors.Add(a.Priority);
+                }
+                catch(Exception e)
+                {
+                    break;
+                }
+            }
+            if(contracts.Count == 0)
+            {
+                Random rd = new Random();
+                int c = rd.Next(52, 120);
+                int p = rd.Next(100, 176);
+                output += Convert.ToString(c) + " " + Convert.ToString(p);
+            }
+            else
+            {
+                Random rd = new Random();
+                int c = rd.Next(52, 120);
+                int p = rd.Next(100, 176);
+                output += Convert.ToString(c) + " " + Convert.ToString(p);
+            }
+            return output;
         }
 
         public bool check(string email, string pass)
@@ -303,7 +382,7 @@ namespace BookingForm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NHH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password")] Appoinment appoinment)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NCH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password,Contract, Priority, Confirm")] Appoinment appoinment)
         {
             if (id != appoinment.ID)
             {

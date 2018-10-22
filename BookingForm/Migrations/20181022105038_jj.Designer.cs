@@ -4,14 +4,16 @@ using BookingForm.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingForm.Migrations
 {
     [DbContext(typeof(BookingFormContext))]
-    partial class BookingFormContextModelSnapshot : ModelSnapshot
+    [Migration("20181022105038_jj")]
+    partial class jj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,9 @@ namespace BookingForm.Migrations
 
                     b.Property<string>("WorkPlace");
 
-                    b.Property<string>("cTime");
+                    b.Property<DateTime>("cTime");
 
-                    b.Property<string>("dTime");
+                    b.Property<DateTime>("dTime");
 
                     b.Property<string>("password")
                         .IsRequired();
