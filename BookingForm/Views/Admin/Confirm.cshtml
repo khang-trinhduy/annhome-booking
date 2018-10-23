@@ -1,0 +1,45 @@
+﻿@model BookingForm.Models.Appoinment
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Xác nhận chuyển tiền</h2>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Confirmed" method="post">
+            <h4>Số hợp đồng: @Html.DisplayFor(m => m.Contract) (Số ưu tiên: @Html.DisplayFor(m => m.Priority) - Thời gian ký hợp đồng ưu tiên: @Html.DisplayFor(m => m.cTime))</h4>
+
+            <p>Tên khách hàng: @Html.DisplayFor(m => m.Customer)</p>
+            <p>Tên sale phụ trách: @TempData["name"]</p>
+            <p>Số tiền nộp đặt cọc: @Html.DisplayFor(m => m.Money)</p>
+            <p>Phương thức thanh toán: @Html.DisplayFor(m => m.DType)</p>
+            <input value="@Model.Contract" asp-for="Contract" type="hidden" />
+            <label class="control-label">Số tiền đã nộp</label>
+            <input type="number" asp-for="Price" class="form-control" />
+            <label asp-for="dTime" class="control-label"></label>
+            <input id="dTime" asp-for="dTime" class="form-control" />
+            <input placeholder="Ngày" type="date" id="day" class="form-control" />
+            <input min="0" placeholder="Giờ" type="number" id="hh" class="form-control" />
+            <input min="0" placeholder="Phút" type="number" id="MM" class="form-control" />
+            <input min="0" placeholder="Giây" type="number" id="ss" class="form-control" />
+            <input min="0" placeholder="Mili giây" type="number" id="FF" class="form-control" />
+            <input onclick="generate()" type="submit" style="float:right;" class="btn btn-danger" value="Xác nhận" />
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    function generate() {
+        var time = String(document.getElementById("hh").value) + ":" + String(document.getElementById("MM").value) + ":" + String(document.getElementById("ss").value) + "." + String(document.getElementById("FF").value);
+        
+        var day = document.getElementById("day").value.split("-");
+        var new_day = day[2] + day[1] + day[0];
+        
+        time = new_day + " " + time;
+        document.getElementById("dTime").value = time;
+    }
+</script>
+

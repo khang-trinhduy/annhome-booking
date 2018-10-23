@@ -40,7 +40,6 @@ namespace BookingForm.Models
         public DateTime Day { get; set; }
         [Display(Name = "Nơi cấp*")]
         public string Place { get; set; }
-        [DataType(DataType.Currency)]
         [Display(Name = "Số tiền giữ chỗ đặt mua*")]
         public double Money { get; set; }
         [Required]
@@ -48,7 +47,6 @@ namespace BookingForm.Models
         public string Purpose { get; set; }
         [Display(Name = "Yêu cầu cụ thể")]
         public string Requires { get; set; }
-        [DataType(DataType.Currency)]
         [Display(Name = "Số tiền cần vay (nếu có)")]
         public double Price { get; set; }
         [Display(Name = "Đặc điểm KH")]

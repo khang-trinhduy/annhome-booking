@@ -27,6 +27,11 @@ namespace BookingForm.Controllers
             return View();
         }
 
+        public IActionResult Switch()
+        {
+            return RedirectToAction("Index", "Admin", new { });
+        }
+
         [HttpPost]
         public IActionResult Home(Sale sale)
         {
@@ -111,5 +116,7 @@ namespace BookingForm.Controllers
             
             return RedirectToAction("Views", "Appoinments", new { id });
         }
+
+
     }
 }

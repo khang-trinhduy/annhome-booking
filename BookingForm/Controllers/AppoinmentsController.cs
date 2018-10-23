@@ -262,7 +262,7 @@ namespace BookingForm.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NCH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password,Contract, Priority")] Appoinment appoinment)
+        public async Task<IActionResult> Create([Bind("Customer,Gender,Address,Phone,Email,Job,WorkPlace,Cmnd,Day,Place,Money,Purpose,Requires,Price,Details,DType,Cash,NCH1,NCH2,NCH3,NMS,NSHH,NSH,HKTT,sale,password,Contract, Priority")] Appoinment appoinment)
         {
             //if (ModelState.IsValid)
             //{
@@ -279,7 +279,6 @@ namespace BookingForm.Controllers
             {
                 return View(appoinment);
             }
-            
             else {
                 string tmp = await Escalating();
                 if(tmp != "")
@@ -299,8 +298,24 @@ namespace BookingForm.Controllers
                     {
                         ViewBag.sale = sale;
                     }
-                } 
+                }
+                Random rd = new Random();
+                List<int> numbers = new List<int>();
+                for(int i = 0; i< 6; i++)
+                {
+                    numbers.Add(rd.Next(100, 151));
+                }
+                string str = "";
                 
+                if (appoinment.NCH1 > 0)
+                    str += " - số thứ tự đặt chỗ Căn hộ của bạn là " + Convert.ToString(numbers[0]);
+                if (appoinment.NMS > 0)
+                    str += " - số thứ tự đặt chỗ căn Biệt thự của bạn là " + Convert.ToString(numbers[2]);
+                if (appoinment.NSH > 0)
+                    str += " - số thứ tự đặt chỗ căn Nhà phố của bạn là " + Convert.ToString(numbers[3]);
+                if (appoinment.NSHH > 0)
+                    str += " - số thứ tự đặt chỗ căn Shophouse của bạn là " + Convert.ToString(numbers[5]);
+                TempData["namae"] = str;
                 await _context.SaveChangesAsync();
                 return View("Confirm");
             } 
@@ -313,40 +328,36 @@ namespace BookingForm.Controllers
 
         public async Task<string> Escalating()
         {
-            var tmp = await _context.appoinment.ToListAsync();
+            //var tmp = await _context.appoinment.ToListAsync();
             string output = "";
-            if(tmp.Count <= 0)
-            {
-                return "";
-            }
-            List<int> contracts = new List<int>();
-            List<int> priors = new List<int>();
-            foreach (Appoinment a in await _context.appoinment.ToListAsync())
-            {
-                try
-                {
-                    contracts.Add(a.Contract);
-                    priors.Add(a.Priority);
-                }
-                catch(Exception e)
-                {
-                    break;
-                }
-            }
-            if(contracts.Count == 0)
-            {
+            //List<int> contracts = new List<int>();
+            //List<int> priors = new List<int>();
+            //foreach (Appoinment a in await _context.appoinment.ToListAsync())
+            //{
+            //    try
+            //    {
+            //        contracts.Add(a.Contract);
+            //        priors.Add(a.Priority);
+            //    }
+            //    catch
+            //    {
+            //        break;
+            //    }
+            //}
+            //if(contracts.Count == 0)
+            //{
                 Random rd = new Random();
                 int c = rd.Next(52, 120);
                 int p = rd.Next(100, 176);
                 output += Convert.ToString(c) + " " + Convert.ToString(p);
-            }
-            else
-            {
-                Random rd = new Random();
-                int c = rd.Next(52, 120);
-                int p = rd.Next(100, 176);
-                output += Convert.ToString(c) + " " + Convert.ToString(p);
-            }
+            //}
+            //else
+            //{
+            //    Random rd = new Random();
+            //    int c = rd.Next(52, 120);
+            //    int p = rd.Next(100, 176);
+            //    output += Convert.ToString(c) + " " + Convert.ToString(p);
+            //}
             return output;
         }
 
